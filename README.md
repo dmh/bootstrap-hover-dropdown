@@ -1,3 +1,13 @@
+
+####Added changes:
+
+New option **screenSize** to stop adding hover function not only in touch devices but also stop when window width is lower than **screenSize** value.
+
+Example of config:
+`$('.dropdown-toggle').dropdownHover({ screenSize:768 });`
+
+===============================
+
 Bootstrap Hover Dropdown Plugin
 ===============================
 

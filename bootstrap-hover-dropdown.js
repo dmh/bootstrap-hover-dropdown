@@ -31,12 +31,14 @@
                 defaults = {
                     delay: 500,
                     hoverDelay: 0,
-                    instantlyCloseOthers: true
+                    instantlyCloseOthers: true,
+                    screenSize: 768
                 },
                 data = {
                     delay: $(this).data('delay'),
                     hoverDelay: $(this).data('hover-delay'),
-                    instantlyCloseOthers: $(this).data('close-others')
+                    instantlyCloseOthers: $(this).data('close-others'),
+                    screenSize: $(this).data('screen-size')
                 },
                 showEvent   = 'show.bs.dropdown',
                 hideEvent   = 'hide.bs.dropdown',
@@ -44,6 +46,9 @@
                 // hiddenEvent = 'hidden.bs.dropdown',
                 settings = $.extend(true, {}, defaults, options, data),
                 timeout, timeoutHover;
+                if ($(window).width() < settings.screenSize) {
+                    return;
+                }
 
             $parent.hover(function (event) {
                 // so a neighbor can't open the dropdown
@@ -99,14 +104,13 @@
                 window.clearTimeout(timeout);
                 // restart hover timer
                 window.clearTimeout(timeoutHover);
-                
-                // delay for hover event.  
+                // delay for hover event.
                 timeoutHover = window.setTimeout(function () {
                     $allDropdowns.find(':focus').blur();
 
                     if(settings.instantlyCloseOthers === true)
                         $allDropdowns.removeClass('open');
-                    
+
                     // clear timer for hover event
                     window.clearTimeout(timeoutHover);
                     $this.attr('aria-expanded', 'true');
